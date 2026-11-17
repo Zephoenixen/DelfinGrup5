@@ -12,4 +12,5 @@ public class Address {
         this.city = city;
         this.country = country;
 
+    }
 }
