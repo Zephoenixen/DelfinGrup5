@@ -5,14 +5,16 @@ public class Member {
     private final String name;
     private final LocalDate birthday;
     private final Address address;
+    private final int phoneNumber;
     private final String email;
     private final MembershipType membershipType;
 
 
-    public Member(String name, Address address, String email, LocalDate birthday) {
+    public Member(String name, Address address, String email, int phoneNumber, LocalDate birthday) {
         this.name = name;
         this.address = address;
         this.email = email;
+        this.phoneNumber=phoneNumber;
         this.birthday = birthday;
         this.membershipType = CalculateMembership();
     }
