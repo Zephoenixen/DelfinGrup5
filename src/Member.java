@@ -8,7 +8,6 @@ public class Member {
     private final int phoneNumber;
     private final String email;
     private final MembershipType membershipType;
-
     private boolean active;
     private boolean hasPaid;
 
@@ -16,11 +15,11 @@ public class Member {
         this.name = name;
         this.address = address;
         this.email = email;
-        this.phoneNumber=phoneNumber;
+        this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.membershipType = CalculateMembership();
-        this.active=true;
-        this.hasPaid=true;
+        this.active = true;
+        this.hasPaid = true;
     }
 
     public int getAge() {
@@ -29,17 +28,21 @@ public class Member {
 
     public MembershipType CalculateMembership() {
         int age = getAge();
-
-        if (age < 18) {
-            return MembershipType.JUNIOR;
-        }
-        if (age < 60) {
-            return MembershipType.SENIOR;
+        if (active) {
+            if (age < 18) {
+                return MembershipType.JUNIOR;
+            }
+            if (age < 60) {
+                return MembershipType.SENIOR;
+            } else {
+                return MembershipType.ELDERLY;
+            }
         } else {
-            return MembershipType.ELDERLY;
+            return MembershipType.PASSIVE;
         }
     }
-    public MembershipType getMembershipType(){
+
+    public MembershipType getMembershipType() {
         return membershipType;
     }
 

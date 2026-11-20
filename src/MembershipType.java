@@ -1,2 +1,2 @@
-public enum MembershipType {JUNIOR,SENIOR,ELDERLY,DISCOUNT
+public enum MembershipType {JUNIOR,SENIOR,ELDERLY,DISCOUNT,PASSIVE
 }

@@ -5,4 +5,5 @@ public class CompetitionResults extends DisciplineResult {
         super(d, t, r);
         competition = c;
     }
+
 }
