@@ -28,17 +28,14 @@ public class Member {
 
     public MembershipType CalculateMembership() {
         int age = getAge();
-        if (active) {
-            if (age < 18) {
-                return MembershipType.JUNIOR;
-            }
-            if (age < 60) {
-                return MembershipType.SENIOR;
-            } else {
-                return MembershipType.ELDERLY;
-            }
+        if (!active) { return MembershipType.PASSIVE; }
+        if (age < 18) {
+            return MembershipType.JUNIOR;
+        }
+        if (age < 60) {
+            return MembershipType.SENIOR;
         } else {
-            return MembershipType.PASSIVE;
+            return MembershipType.ELDERLY;
         }
     }
 
