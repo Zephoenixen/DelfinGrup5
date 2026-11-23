@@ -1,15 +1,15 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class CompetitiveMember extends Member {
-    private Discipline discipline;
-    private DisciplineResult disciplineResult;
-    private CompetitionResults competitionResults;
+    private Discipline[] disciplines;
+    private ArrayList<DisciplineResult> disciplineResult;
+    private ArrayList<CompetitionResults> competitionResults;
 
-    public CompetitiveMember(String name, Address address, String email, int phoneNumber, LocalDate birthday, Discipline discipline){
+    public CompetitiveMember(String name, Address address, String email, int phoneNumber, LocalDate birthday, Discipline[] disciplines){
         super(name, address, email,phoneNumber, birthday);
-        this.discipline=discipline;
-        this.disciplineResult =
-        this.competitionResults = ;
+        this.disciplines=disciplines;
+
 
     }
 }
