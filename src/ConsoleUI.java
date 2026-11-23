@@ -5,7 +5,7 @@ public class ConsoleUI {
         menu = MenuChoice.DEFAULT;
         while (menu == MenuChoice.DEFAULT) {
             showMenu();
-            int choice = Integer.parseInt("");
+            int choice = Integer.parseInt(IO.readln());
             switch (choice) {
                 case 1 -> showChairmanMenu();
                 case 2 -> showCashierMenu();
@@ -14,7 +14,7 @@ public class ConsoleUI {
             }
         }
         while (menu == MenuChoice.CHAIRMAN){
-            int choice = Integer.parseInt("");
+            int choice = Integer.parseInt(IO.readln());
             switch (choice) {
                 case 1 -> IO.println("chairman");
                 case 2 -> IO.println("");
@@ -22,7 +22,7 @@ public class ConsoleUI {
             }
         }
         while (menu == MenuChoice.CASHIER){
-            int choice = Integer.parseInt("");
+            int choice = Integer.parseInt(IO.readln());
             switch (choice) {
                 case 1 -> IO.println("cashier");
                 case 2 -> IO.println("");
@@ -30,7 +30,7 @@ public class ConsoleUI {
             }
         }
         while (menu == MenuChoice.TRAINER){
-            int choice = Integer.parseInt("");
+            int choice = Integer.parseInt(IO.readln());
             switch (choice) {
                 case 1 -> IO.println("trainer");
                 case 2 -> IO.println("");
