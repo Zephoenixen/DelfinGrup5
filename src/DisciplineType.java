@@ -1,6 +1,6 @@
 public enum DisciplineType {
-    Butterfly,
-    Crawl,
-    BackCrawl,
-    Breaststroke
+    BUTTERFLY,
+    CRAWL,
+    BACKCRAWL,
+    BREASTSTROKE
 }
