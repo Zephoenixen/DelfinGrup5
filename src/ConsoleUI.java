@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 public class ConsoleUI {
     public MenuChoice menu;
-
+    private ArrayList<Member> members;
     public void run() {
         menu = MenuChoice.DEFAULT;
         while (menu == MenuChoice.DEFAULT) {
@@ -24,7 +25,7 @@ public class ConsoleUI {
         while (menu == MenuChoice.CASHIER){
             int choice = Integer.parseInt(IO.readln());
             switch (choice) {
-                case 1 -> IO.println("cashier");
+                case 1 -> showExpectedIncome();
                 case 2 -> IO.println("");
                 case 3 -> IO.println("");
             }
@@ -84,7 +85,7 @@ public class ConsoleUI {
         menuHeader();
         IO.println("""  
                 
-                 1. cashier
+                 1. Vis forvented årlig kontignent
                  2. 
                  3. 
                 
@@ -103,5 +104,17 @@ public class ConsoleUI {
                 
                 """);
         menuFooter();
+    }
+    public void showExpectedIncome() {
+        MembershipCalculator calculator = new MembershipCalculator();
+
+        double expectedIncome =
+                calculator.CalculateMembershipTotal(members);
+
+        IO.println("Expected membership income: "
+                + expectedIncome + " kr.");
+    }
+    public ConsoleUI(ArrayList<Member> members) {
+        this.members = members;
     }
 }

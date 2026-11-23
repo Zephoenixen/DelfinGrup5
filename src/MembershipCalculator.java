@@ -1,7 +1,7 @@
 import java.util.ArrayList;
-public class SamledeKontingentIndtægt {
+public class MembershipCalculator {
 
-    public double beregnForventetIndtægt(ArrayList<Member> members) {
+    public double CalculateMembershipTotal(ArrayList<Member> members) {
 
         return members.stream()
                 .filter(Member::isActive)
