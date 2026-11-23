@@ -1,15 +1,13 @@
 public class DisciplineResult {
-    final private DisciplineType discipline;
+    final private Discipline discipline;
     final private int time;
-    final private ResultType result;
 
-    public DisciplineResult(DisciplineType d, int t, ResultType r){
+    public DisciplineResult(Discipline d, int t){
         discipline = d;
         time = t;
-        result = r;
     }
 
-    public DisciplineType getDiscipline() {
+    public Discipline getDiscipline() {
         return discipline;
     }
 
@@ -17,7 +15,4 @@ public class DisciplineResult {
         return time;
     }
 
-    public ResultType getResult() {
-        return result;
-    }
 }
