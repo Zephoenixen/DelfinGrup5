@@ -5,6 +5,12 @@ public class Club {
 
     private ArrayList<Member> members = new ArrayList<>();
 
+    private ArrayList<Competition> competitions = new ArrayList<>();
+
+    private TeamManager teamManager = new TeamManager();
+
+
+
     public void addMember(Member member) {
         members.add(member);
     }
@@ -22,6 +28,7 @@ public class Club {
 
         return null;
     }
+
 
     public boolean registerPayment(int memberNumber) {
         Member member = findMember(memberNumber);
@@ -55,5 +62,14 @@ public class Club {
         }
 
         return total;
+    }
+
+
+    private boolean addCompetition(Competition c){
+        for (Competition competition: competitions){
+            if (competition.equals(c)){ return false; }
+        }
+        competitions.add(c);
+        return true;
     }
 }
