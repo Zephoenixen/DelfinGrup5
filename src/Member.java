@@ -49,6 +49,9 @@ public class Member {
     public String getName() {
         return name;
     }
+    public double getMembershipFee() {
+        return membershipType.getFee();
+    }
 
     public LocalDate getBirthday() {
         return birthday;
