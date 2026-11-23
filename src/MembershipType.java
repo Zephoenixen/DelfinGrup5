@@ -1,4 +1,5 @@
 public enum MembershipType {
+    PASSIVE(500),
     JUNIOR(1000),
     SENIOR(1600),
     ELDERLY(1200);
