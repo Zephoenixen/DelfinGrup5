@@ -1,7 +1,11 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 public class ConsoleUI {
     public MenuChoice menu;
     private ArrayList<Member> members;
+
     public void run() {
         menu = MenuChoice.DEFAULT;
         while (menu == MenuChoice.DEFAULT) {
@@ -17,7 +21,7 @@ public class ConsoleUI {
         while (menu == MenuChoice.CHAIRMAN){
             int choice = Integer.parseInt(IO.readln());
             switch (choice) {
-                case 1 -> IO.println("chairman");
+                case 1 -> createMember();
                 case 2 -> IO.println("");
                 case 3 -> IO.println("");
             }
@@ -72,12 +76,32 @@ public class ConsoleUI {
         menuHeader();
         IO.println("""  
                 
-                 1. chairman
-                 2. 
-                 3. 
+                 1. Opret medlem
+                 2. Opret konkurrencesvømmer
+                 3. Ændre medlem
                 
                 """);
         menuFooter();
+    }
+    private Member createMember(){
+        DateTimeFormatter euFormat = DateTimeFormatter.ofPattern("[d-M-yyyy][d/M/yyyy][d.M.yyyy]");
+        String name = IO.readln("Fulde navn: ");
+        Address address = createAddress();
+        String email = IO.readln("Email: ");
+        int phoneNumber = Integer.parseInt(IO.readln("Telefon Nummer: "));
+        LocalDate birthday = LocalDate.parse(IO.readln("Fødselsdag DD-MM-YYYY: "), euFormat);
+        menu = MenuChoice.DEFAULT;
+        run();
+        return new Member(name, address,email, phoneNumber,birthday);
+
+    }
+    private Address createAddress(){
+        String Streetname = IO.readln("Vejnavn: ");
+        String houseNumber = IO.readln("Nummer: ");
+        int postalCode = Integer.parseInt(IO.readln("Postnummer: "));
+        String city = IO.readln("By: ");
+        String country = IO.readln("Land: ");
+        return new Address(Streetname,houseNumber,postalCode,city,country);
     }
 
     public void showCashierMenu() {
@@ -85,7 +109,7 @@ public class ConsoleUI {
         menuHeader();
         IO.println("""  
                 
-                 1. Vis forvented årlig kontignent
+                 1. Vis årlig kontigent indkomst
                  2. 
                  3. 
                 
@@ -105,13 +129,14 @@ public class ConsoleUI {
                 """);
         menuFooter();
     }
+
     public void showExpectedIncome() {
         MembershipCalculator calculator = new MembershipCalculator();
 
         double expectedIncome =
                 calculator.CalculateMembershipTotal(members);
 
-        IO.println("Expected membership income: "
+        IO.println("Forventet årlig kontigent indkomst: "
                 + expectedIncome + " kr.");
     }
     public ConsoleUI(ArrayList<Member> members) {
