@@ -1,4 +1,5 @@
 void main() {
-    ConsoleUI consoleUI = new ConsoleUI();
+    ArrayList members = new ArrayList<>();
+    ConsoleUI consoleUI = new ConsoleUI(members);
     consoleUI.run();
 }
