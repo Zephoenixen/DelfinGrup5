@@ -96,8 +96,11 @@ public class Member {
         this.active = active;
     }
 
-//    @Override
+/*    @Override
 //    public String toString() {
-//        return "#" + memberNumber + " | " + name + " | " + getMembershipType(LocalDate.now());
-//    }
+//        return "#" + memberNumber + " | " + name +
+        "\n Address: " + address +
+        "\n Email: " + email + | Tlf: " + phoneNumber +
+//       "\n + getMembershipType(LocalDate.now()) + (Aktiv: " +´active + ")";
+    }*/
 }
