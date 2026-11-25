@@ -1,10 +1,11 @@
+import javax.swing.plaf.metal.MetalMenuBarUI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ConsoleUI {
     public MenuChoice menu;
-    private ArrayList<Member> members;
+    private final Club club;
 
     public void run() {
         menu = MenuChoice.DEFAULT;
@@ -24,6 +25,7 @@ public class ConsoleUI {
                 case 1 -> createMember();
                 case 2 -> IO.println("");
                 case 3 -> IO.println("");
+                case 4 -> listMembers();
             }
         }
         while (menu == MenuChoice.CASHIER){
@@ -44,6 +46,7 @@ public class ConsoleUI {
         }
 
     }
+
     public void menuHeader() {
         IO.println("""
                 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
@@ -79,11 +82,20 @@ public class ConsoleUI {
                  1. Opret medlem
                  2. Opret konkurrencesvømmer
                  3. Ændre medlem
+                 4. Vis Medlemsliste
                 
                 """);
         menuFooter();
     }
-    private Member createMember(){
+
+    private void listMembers(){
+        ArrayList<Member> members = club.getMembers();
+        for (Member member: members){
+            IO.println(member.getName());
+        }
+    }
+
+    private void createMember(){
         DateTimeFormatter euFormat = DateTimeFormatter.ofPattern("[d-M-yyyy][d/M/yyyy][d.M.yyyy]");
         String name = IO.readln("Fulde navn: ");
         Address address = createAddress();
@@ -92,9 +104,10 @@ public class ConsoleUI {
         LocalDate birthday = LocalDate.parse(IO.readln("Fødselsdag DD-MM-YYYY: "), euFormat);
         menu = MenuChoice.DEFAULT;
         run();
-        return new Member(name, address,email, phoneNumber,birthday);
-
+        Member member = new Member(name, address,email, phoneNumber,birthday);
+        club.addMember(member);
     }
+
     private Address createAddress(){
         String Streetname = IO.readln("Vejnavn: ");
         String houseNumber = IO.readln("Nummer: ");
@@ -134,12 +147,13 @@ public class ConsoleUI {
         MembershipCalculator calculator = new MembershipCalculator();
 
         double expectedIncome =
-                calculator.CalculateMembershipTotal(members);
+                calculator.CalculateMembershipTotal(club.getMembers());
 
         IO.println("Forventet årlig kontigent indkomst: "
                 + expectedIncome + " kr.");
     }
-    public ConsoleUI(ArrayList<Member> members) {
-        this.members = members;
+
+    public ConsoleUI(Club club) {
+        this.club = club;
     }
 }
