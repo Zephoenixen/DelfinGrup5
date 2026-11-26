@@ -29,7 +29,6 @@ public class Club {
         return null;
     }
 
-
     public boolean registerPayment(int memberNumber) {
         Member member = findMember(memberNumber);
 
@@ -64,12 +63,21 @@ public class Club {
         return total;
     }
 
-
     private boolean addCompetition(Competition c){
         for (Competition competition: competitions){
             if (competition.equals(c)){ return false; }
         }
         competitions.add(c);
         return true;
+    }
+
+    public int nextMemberNumber(){
+        int highestNumber = 0;
+        for(Member member:members){
+            if(member.getMemberNumber()>highestNumber){
+                highestNumber = member.getMemberNumber();
+            }
+        }
+        return highestNumber +1;
     }
 }

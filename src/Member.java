@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Member {
-    // private final int memberNumber;
+    private final int memberNumber;
     private String name;
     private LocalDate birthday;
     private Address address;
@@ -12,8 +12,8 @@ public class Member {
     private boolean active;
     private boolean hasPaid;
 
-    public Member(String name, Address address, String email, int phoneNumber, LocalDate birthday) {
-        //this.memberNumber = memberNumber;
+    public Member(int memberNumber, String name, Address address, String email, int phoneNumber, LocalDate birthday) {
+        this.memberNumber = memberNumber;
         this.name = name;
         this.address = address;
         this.email = email;
@@ -43,9 +43,9 @@ public class Member {
         }
     }
 
-//    public int getMemberNumber() {
-//        return memberNumber;
-//    }
+    public int getMemberNumber() {
+        return memberNumber;
+    }
 
     public MembershipType getMembershipType() {
         return membershipType;
@@ -96,11 +96,11 @@ public class Member {
         this.active = active;
     }
 
-/*    @Override
+//    @Override
 //    public String toString() {
 //        return "#" + memberNumber + " | " + name +
-        "\n Address: " + address +
-        "\n Email: " + email + | Tlf: " + phoneNumber +
-//       "\n + getMembershipType(LocalDate.now()) + (Aktiv: " +´active + ")";
-    }*/
+//                "\n Address: " + address +
+//                "\n Email: " + email + "| TLF:" + phoneNumber +
+//        "\n Type: " + getMembershipType(LocalDate.now()) + " (Aktiv: " + active + ")";
+//    }
 }

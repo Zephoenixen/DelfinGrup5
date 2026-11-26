@@ -1,5 +1,5 @@
 void main() {
-    ArrayList members = new ArrayList<>();
-    ConsoleUI consoleUI = new ConsoleUI(members);
+    Club club = new Club();
+    ConsoleUI consoleUI = new ConsoleUI(club);
     consoleUI.run();
 }

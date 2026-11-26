@@ -6,10 +6,10 @@ public class CompetitiveMember extends Member {
     private ArrayList<DisciplineResult> disciplineResult;
     private ArrayList<CompetitionResults> competitionResults;
 
-    public CompetitiveMember(String name, Address address, String email, int phoneNumber, LocalDate birthday, Discipline[] disciplines){
-        super(name, address, email,phoneNumber, birthday);
-        this.disciplines=disciplines;
-
-
+    public CompetitiveMember(int memberNumber, String name, Address address, String email, int phoneNumber, LocalDate birthday, Discipline[] disciplines){
+        super(memberNumber, name, address, email,phoneNumber, birthday);
+        this.disciplines = disciplines;
+        this.disciplineResult = new ArrayList<>();
+        this.competitionResults = new ArrayList<>();
     }
 }
