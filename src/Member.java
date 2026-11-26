@@ -8,7 +8,7 @@ public class Member {
     private Address address;
     private int phoneNumber;
     private String email;
-    private MembershipType membershipType;
+    //private MembershipType membershipType;
     private boolean active;
     private boolean hasPaid;
 
@@ -19,36 +19,58 @@ public class Member {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
-        this.membershipType = CalculateMembership();
+        //this.membershipType = CalculateMembership();
         this.active = true;
         this.hasPaid = true;
     }
 
     public int getAge() {
-        return Period.between(birthday, LocalDate.now()).getYears();
+        return getAge(LocalDate.now());
+//        return Period.between(birthday, LocalDate.now()).getYears();
+    }
+    public int getAge(LocalDate date){
+        return Period.between(birthday, date).getYears();
     }
 
-    public MembershipType CalculateMembership() {
-        int age = getAge();
-        if (!active) {
-            return MembershipType.PASSIVE;
-        }
-        if (age < 18) {
-            return MembershipType.JUNIOR;
-        }
-        if (age < 60) {
-            return MembershipType.SENIOR;
-        } else {
-            return MembershipType.ELDERLY;
-        }
-    }
+//    public MembershipType CalculateMembership() {
+//        int age = getAge();
+//        if (!active) {
+//            return MembershipType.PASSIVE;
+//        }
+//        if (age < 18) {
+//            return MembershipType.JUNIOR;
+//        }
+//        if (age < 60) {
+//            return MembershipType.SENIOR;
+//        } else {
+//            return MembershipType.ELDERLY;
+//        }
+//    }
 
     public int getMemberNumber() {
         return memberNumber;
     }
 
-    public MembershipType getMembershipType() {
-        return membershipType;
+//    public MembershipType getMembershipType() {
+//        return membershipType;
+//    }
+    public MembershipType getMembershipType(){
+        return getMembershipType(LocalDate.now());
+    }
+    public MembershipType getMembershipType(LocalDate date){
+        if(!active){
+            return MembershipType.PASSIVE;
+        }
+        int age = getAge(date);
+        if(age<18){
+            return MembershipType.JUNIOR;
+        }
+        if (age<60){
+            return MembershipType.SENIOR;
+        }
+        else{
+           return MembershipType.ELDERLY;
+        }
     }
 
     public String getName() {
@@ -56,7 +78,8 @@ public class Member {
     }
 
     public double getMembershipFee() {
-        return membershipType.getFee();
+        return getMembershipType().getFee();
+//        return membershipType.getFee();
     }
 
     public LocalDate getBirthday() {
@@ -96,11 +119,11 @@ public class Member {
         this.active = active;
     }
 
-//    @Override
-//    public String toString() {
-//        return "#" + memberNumber + " | " + name +
-//                "\n Address: " + address +
-//                "\n Email: " + email + "| TLF:" + phoneNumber +
-//        "\n Type: " + getMembershipType(LocalDate.now()) + " (Aktiv: " + active + ")";
-//    }
+    @Override
+    public String toString() {
+        return "#" + memberNumber + " | " + name +
+                "\n Address: " + address +
+                "\n Email: " + email + "| TLF:" + phoneNumber +
+        "\n Type: " + getMembershipType(LocalDate.now()) + " (Aktiv: " + active + ")";
+    }
 }
