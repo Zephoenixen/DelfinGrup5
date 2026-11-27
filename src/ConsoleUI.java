@@ -185,13 +185,6 @@ public class ConsoleUI {
         IO.println("0. Annuller");
     }
 
-    private void listMembers(){
-        ArrayList<Member> members = club.getMembers();
-        for (Member member: members){
-            IO.println(member.getName());
-        }
-    }
-
     private void showExpectedIncome() {
         double expectedIncome = club.calculateTotalIncome(LocalDate.now());
         IO.println("Forventet årlig contingent indkomst: "
