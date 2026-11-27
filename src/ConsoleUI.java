@@ -136,22 +136,12 @@ public class ConsoleUI {
         String name = IO.readln("Fulde navn: ");
         Address address = createAddress();
         String email = IO.readln("Email: ");
-        int phoneNumber = parseInt("Telefon Nummer: ");
-        LocalDate birthday = null;
-        while (birthday == null){
-            try {
-                String dateStr = IO.readln("Fødselsdag DD-MM-YYYY: ");
-                birthday = LocalDate.parse(dateStr, euFormat);
-            }
-            catch (Exception e){
-                IO.println(" ! Ugyldig dato. Prøv igen. ");
-            }
-        }
-        int memberNumber = club.nextMemberNumber();
-        Member newMember = new Member(memberNumber, name, address, email, phoneNumber, birthday);
-        club.addMember(newMember);
-        IO.println("\n Medlem oprettet: " + newMember);
+        int phoneNumber = Integer.parseInt(IO.readln("Telefon Nummer: "));
+        LocalDate birthday = LocalDate.parse(IO.readln("Fødselsdag DD-MM-YYYY: "), euFormat);
         menu = MenuChoice.DEFAULT;
+        run();
+        Member member = new Member(name, address,email, phoneNumber,birthday, 1);
+        club.addMember(member);
     }
 
     private void showEditMemberMenu(Member member){
@@ -184,7 +174,7 @@ public class ConsoleUI {
             return;
         }
         for(Member m : unpaid){
-            IO.println(" #" + m.getMemberNumber() + "|" + m.getName() + " | Skylder: " + m.getMembershipFee() + "kr.");
+            IO.println(" #" + m.calculateMembership() + "|" + m.getName() + " | Skylder: " + m.getMembershipFee() + "kr.");
         }
         IO.println("Total i restance: " + unpaid.size() + "medlemmer.");
     }
