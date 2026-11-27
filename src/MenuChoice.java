@@ -2,5 +2,6 @@ public enum MenuChoice {
     DEFAULT,
     CHAIRMAN,
     CASHIER,
-    TRAINER
+    TRAINER,
+    MEMBEREDITOR
 }

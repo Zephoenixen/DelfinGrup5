@@ -15,6 +15,7 @@ public class Club {
         members.add(member);
     }
 
+
     public ArrayList<Member> getMembers() {
         return members;
     }
@@ -74,8 +75,8 @@ public class Club {
     public int nextMemberNumber(){
         int highestNumber = 0;
         for(Member member:members){
-            if(member.getMemberNumber()>highestNumber){
-                highestNumber = member.getMemberNumber();
+            if(member.getMemberID()>highestNumber){
+                highestNumber = member.getMemberID();
             }
         }
         return highestNumber +1;
