@@ -36,7 +36,13 @@ public class Member {
         return address;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public int getPhonenumber() {
+        return phoneNumber;
+    }
 
     public MembershipType calculateMembership() {
         int age = getAge();
@@ -110,4 +116,7 @@ public class Member {
                 "\n Email: " + email + "| TLF:" + phoneNumber +
         "\n Type: " + calculateMembership() + " (Aktiv: " + active + ")";
     }
+
+
+
 }
