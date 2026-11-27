@@ -9,6 +9,7 @@ public class ConsoleUI {
     public ConsoleUI(Club club){
         this.club = club;
     }
+    MembershipCalculator calculator = new MembershipCalculator();
 
     public void run() {
         menu = MenuChoice.DEFAULT;
@@ -24,7 +25,8 @@ public class ConsoleUI {
                         return;
                     }
                 }
-            } else if (menu == MenuChoice.CHAIRMAN) {
+            }
+            else if (menu == MenuChoice.CHAIRMAN) {
                 int choice = parseInt("Vælg: ");
                 switch (choice) {
                     case 1 -> createMember();
@@ -32,7 +34,9 @@ public class ConsoleUI {
                     case 3 -> editMember();
                     case 0 -> menu = MenuChoice.DEFAULT;
                 }
-            } else if (menu == MenuChoice.CASHIER) {
+            }
+            else if (menu == MenuChoice.CASHIER) {
+
                 int choice = parseInt("Vælg: ");
                 switch (choice) {
                     case 1 -> showExpectedIncome();
@@ -40,40 +44,24 @@ public class ConsoleUI {
                     case 3 -> registerPayment();
                     case 0 -> menu = MenuChoice.DEFAULT;
                 }
-            } else if (menu == MenuChoice.TRAINER) {
+            }
+            else if (menu == MenuChoice.TRAINER) {
                 int choice = parseInt("Vælg: ");
                 switch (choice) {
                     case 1 -> IO.println("Trainer");
                     case 0 -> menu = MenuChoice.DEFAULT;
                 }
             }
-        }
-        while (menu == MenuChoice.CHAIRMAN){
-            int choice = Integer.parseInt(IO.readln());
-            switch (choice) {
-                case 1 -> createMember();
-                case 2 -> IO.println("");
-                case 3 -> IO.println("");
-                case 4 -> listMembers();
+            else if (menu == MenuChoice.MEMBEREDITOR){
+                int choice = parseInt("Vælg: ");
+                switch (choice) {
+                    case 1 -> createMember();
+                    case 2 -> IO.println("Opret Konkurrencesvømmer");
+                    case 3 -> editMember();
+                    case 0 -> menu = MenuChoice.DEFAULT;
+                }
             }
         }
-        while (menu == MenuChoice.CASHIER){
-            int choice = Integer.parseInt(IO.readln());
-            switch (choice) {
-                case 1 -> showExpectedIncome();
-                case 2 -> IO.println("");
-                case 3 -> IO.println("");
-            }
-        }
-        while (menu == MenuChoice.TRAINER){
-            int choice = Integer.parseInt(IO.readln());
-            switch (choice) {
-                case 1 -> IO.println("trainer");
-                case 2 -> IO.println("");
-                case 3 -> IO.println("");
-            }
-        }
-
     }
 
     public void menuHeader() {
@@ -117,36 +105,7 @@ public class ConsoleUI {
         menuFooter();
     }
 
-    private void listMembers(){
-        ArrayList<Member> members = club.getMembers();
-        for (Member member: members){
-            IO.println(member.getName());
-        }
-    }
-
-    private void createMember(){
-        DateTimeFormatter euFormat = DateTimeFormatter.ofPattern("[d-M-yyyy][d/M/yyyy][d.M.yyyy]");
-        String name = IO.readln("Fulde navn: ");
-        Address address = createAddress();
-        String email = IO.readln("Email: ");
-        int phoneNumber = Integer.parseInt(IO.readln("Telefon Nummer: "));
-        LocalDate birthday = LocalDate.parse(IO.readln("Fødselsdag DD-MM-YYYY: "), euFormat);
-        menu = MenuChoice.DEFAULT;
-        run();
-        Member member = new Member(name, address,email, phoneNumber,birthday);
-        club.addMember(member);
-    }
-
-    private Address createAddress(){
-        String Streetname = IO.readln("Vejnavn: ");
-        String houseNumber = IO.readln("Nummer: ");
-        int postalCode = Integer.parseInt(IO.readln("Postnummer: "));
-        String city = IO.readln("By: ");
-        String country = IO.readln("Land: ");
-        return new Address(Streetname,houseNumber,postalCode,city,country);
-    }
-
-    public void showCashierMenu() {
+    private void showCashierMenu() {
         menu = MenuChoice.CASHIER;
         menuHeader();
         IO.println("""  
@@ -158,18 +117,20 @@ public class ConsoleUI {
                 """);
         menuFooter();
     }
-    public void showTrainerMenu() {
+
+    private void showTrainerMenu() {
         menu= MenuChoice.TRAINER;
         menuHeader();
         IO.println("""  
                 
-                 1. trainer
-                 2. 
-                 3. 
+                 1. Top 5 per disciplin.
+                 2. Sæt medlemmer på hold.
+                 3. Vis ansvarsområde.
                  0. Tilbage
                 """);
         menuFooter();
     }
+
     private void createMember(){
         DateTimeFormatter euFormat = DateTimeFormatter.ofPattern("[d-M-yyyy][d/M/yyyy][d.M.yyyy]");
         String name = IO.readln("Fulde navn: ");
@@ -192,20 +153,29 @@ public class ConsoleUI {
         IO.println("\n Medlem oprettet: " + newMember);
         menu = MenuChoice.DEFAULT;
     }
-    private Address createAddress(){
-        String Streetname = IO.readln("Vejnavn: ");
-        String houseNumber = IO.readln("Nummer: ");
-        int postalCode = parseInt("Postnummer: ");
-        String city = IO.readln("By: ");
-        String country = IO.readln("Land: ");
-        return new Address(Streetname,houseNumber,postalCode,city,country);
+
+    private void showEditMemberMenu(Member member){
+        IO.println("Redigerer: " + member.getName());
+        IO.println("1. Ændre Navn");
+        IO.println("2. Ændre Address");
+        IO.println("3. Ændre Email");
+        IO.println("4. Ændre Telefonnummer");
+        IO.println("0. Annuller");
     }
 
-    public void showExpectedIncome() {
+    private void listMembers(){
+        ArrayList<Member> members = club.getMembers();
+        for (Member member: members){
+            IO.println(member.getName());
+        }
+    }
+
+    private void showExpectedIncome() {
         double expectedIncome = club.calculateTotalIncome(LocalDate.now());
         IO.println("Forventet årlig contingent indkomst: "
                 + expectedIncome + " kr.");
     }
+
     private void showUnpaidMembers(){
       IO.println("\n -- Medlemmer i restance --");
         ArrayList<Member>unpaid = club.getUnpaidMembers();
@@ -218,6 +188,7 @@ public class ConsoleUI {
         }
         IO.println("Total i restance: " + unpaid.size() + "medlemmer.");
     }
+
     private void registerPayment(){
         IO.println("\n -- Register betaling --");
         int memberNumber = parseInt("Indsat medlemsnummer (0 for at annullere):");
@@ -230,6 +201,7 @@ public class ConsoleUI {
             IO.println(" ! Intet medlem fundet med nummer" + memberNumber);
         }
     }
+
     private void editMember(){
         IO.println("\n --- Ændre Medlem ---");
         int memberNumber = parseInt("Indtast medlemsnummer (0 for at annullere):");
@@ -239,18 +211,11 @@ public class ConsoleUI {
         }
         Member member = club.findMember(memberNumber);
         if (member == null){
-          IO.println(" ! Intent medlem fundet med nummer " + memberNumber);
-          return;
+            IO.println(" ! Intent medlem fundet med nummer " + memberNumber);
+            return;
         }
-        IO.println("Redigerer: " + member.getName());
-        IO.println("1. Ændre Navn");
-        IO.println("2. Ændre Address");
-        IO.println("3. Ændre Email");
-        IO.println("4. Ændre Telefonnummer");
-        IO.println("0. Annuller");
 
-        double expectedIncome =
-                calculator.CalculateMembershipTotal(club.getMembers());
+        double expectedIncome = calculator.CalculateMembershipTotal(club.getMembers());
 
         switch (choice){
             case 1 -> {
@@ -276,6 +241,15 @@ public class ConsoleUI {
             case 0 -> IO.println("Annulleret. ");
             default -> IO.println(" ! Ugyldigt valg. ");
         }
+    }
+
+    private Address createAddress(){
+        String Streetname = IO.readln("Vejnavn: ");
+        String houseNumber = IO.readln("Nummer: ");
+        int postalCode = Integer.parseInt(IO.readln("Postnummer: "));
+        String city = IO.readln("By: ");
+        String country = IO.readln("Land: ");
+        return new Address(Streetname,houseNumber,postalCode,city,country);
     }
 
     private int parseInt(String prompt){
