@@ -1,3 +1,4 @@
+import javax.swing.plaf.metal.MetalMenuBarUI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,6 +48,32 @@ public class ConsoleUI {
                 }
             }
         }
+        while (menu == MenuChoice.CHAIRMAN){
+            int choice = Integer.parseInt(IO.readln());
+            switch (choice) {
+                case 1 -> createMember();
+                case 2 -> IO.println("");
+                case 3 -> IO.println("");
+                case 4 -> listMembers();
+            }
+        }
+        while (menu == MenuChoice.CASHIER){
+            int choice = Integer.parseInt(IO.readln());
+            switch (choice) {
+                case 1 -> showExpectedIncome();
+                case 2 -> IO.println("");
+                case 3 -> IO.println("");
+            }
+        }
+        while (menu == MenuChoice.TRAINER){
+            int choice = Integer.parseInt(IO.readln());
+            switch (choice) {
+                case 1 -> IO.println("trainer");
+                case 2 -> IO.println("");
+                case 3 -> IO.println("");
+            }
+        }
+
     }
 
     public void menuHeader() {
@@ -84,10 +111,41 @@ public class ConsoleUI {
                  1. Opret medlem
                  2. Opret konkurrencesvømmer
                  3. Ændre medlem
-                 0. Tilbage
+                 4. Vis Medlemsliste
+                
                 """);
         menuFooter();
     }
+
+    private void listMembers(){
+        ArrayList<Member> members = club.getMembers();
+        for (Member member: members){
+            IO.println(member.getName());
+        }
+    }
+
+    private void createMember(){
+        DateTimeFormatter euFormat = DateTimeFormatter.ofPattern("[d-M-yyyy][d/M/yyyy][d.M.yyyy]");
+        String name = IO.readln("Fulde navn: ");
+        Address address = createAddress();
+        String email = IO.readln("Email: ");
+        int phoneNumber = Integer.parseInt(IO.readln("Telefon Nummer: "));
+        LocalDate birthday = LocalDate.parse(IO.readln("Fødselsdag DD-MM-YYYY: "), euFormat);
+        menu = MenuChoice.DEFAULT;
+        run();
+        Member member = new Member(name, address,email, phoneNumber,birthday);
+        club.addMember(member);
+    }
+
+    private Address createAddress(){
+        String Streetname = IO.readln("Vejnavn: ");
+        String houseNumber = IO.readln("Nummer: ");
+        int postalCode = Integer.parseInt(IO.readln("Postnummer: "));
+        String city = IO.readln("By: ");
+        String country = IO.readln("Land: ");
+        return new Address(Streetname,houseNumber,postalCode,city,country);
+    }
+
     public void showCashierMenu() {
         menu = MenuChoice.CASHIER;
         menuHeader();
@@ -191,7 +249,8 @@ public class ConsoleUI {
         IO.println("4. Ændre Telefonnummer");
         IO.println("0. Annuller");
 
-        int choice = parseInt("Valg hvad der skal ændres: ");
+        double expectedIncome =
+                calculator.CalculateMembershipTotal(club.getMembers());
 
         switch (choice){
             case 1 -> {
