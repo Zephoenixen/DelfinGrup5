@@ -11,6 +11,21 @@ public class Address {
         this.postalCode = postalCode;
         this.city = city;
         this.country = country;
+    }
 
+    public String getStreetName() {
+        return streetName; }
+    public String getHouseNumber() {
+        return houseNumber; }
+    public int getPostalCode() {
+        return postalCode; }
+    public String getCity() {
+        return city; }
+    public String getCountry() {
+        return country; }
+
+    @Override
+    public String toString() {
+        return streetName + " " + houseNumber + ", " + postalCode + " " + city;
     }
 }
