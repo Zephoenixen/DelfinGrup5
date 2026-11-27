@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class ConsoleUI {
     public MenuChoice menu;
@@ -34,6 +35,8 @@ public class ConsoleUI {
                 int choice = parseInt("Vælg: ");
                 switch (choice) {
                     case 1 -> showExpectedIncome();
+                    case 2 -> showUnpaidMembers();
+                    case 3 -> registerPayment();
                     case 0 -> menu = MenuChoice.DEFAULT;
                 }
             } else if (menu == MenuChoice.TRAINER) {
@@ -91,8 +94,8 @@ public class ConsoleUI {
         IO.println("""  
                 
                  1. Vis årlig kontigent indkomst
-                 2. 
-                 3. 
+                 2. Vis medlemmer i restance(ubetale)
+                 3. Registrer betaling
                  0. Tilbage
                 """);
         menuFooter();
@@ -144,6 +147,30 @@ public class ConsoleUI {
         double expectedIncome = club.calculateTotalIncome(LocalDate.now());
         IO.println("Forventet årlig contingent indkomst: "
                 + expectedIncome + " kr.");
+    }
+    private void showUnpaidMembers(){
+      IO.println("\n -- Medlemmer i restance --");
+        ArrayList<Member>unpaid = club.getUnpaidMembers();
+        if(unpaid.isEmpty()){
+            IO.println("Alle medlemmer har betalt deres kontingent!");
+            return;
+        }
+        for(Member m : unpaid){
+            IO.println(" #" + m.getMemberNumber() + "|" + m.getName() + " | Skylder: " + m.getMembershipFee() + "kr.");
+        }
+        IO.println("Total i restance: " + unpaid.size() + "medlemmer.");
+    }
+    private void registerPayment(){
+        IO.println("\n -- Register betaling --");
+        int memberNumber = parseInt("Indsat medlemsnummer (0 for at annullere):");
+        if(memberNumber == 0) return;
+        boolean success = club.registerPayment(memberNumber);
+        if(success){
+            IO.println("Betaling registeret for medlem #" + memberNumber);
+        }
+        else {
+            IO.println(" ! Intet medlem fundet med nummer" + memberNumber);
+        }
     }
     private void editMember(){
         IO.println("\n --- Ændre Medlem ---");

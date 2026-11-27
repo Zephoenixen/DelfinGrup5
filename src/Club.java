@@ -40,7 +40,7 @@ public class Club {
         return false;
     }
 
-    public ArrayList<Member> getUnpaidMembers() {
+    public ArrayList <Member> getUnpaidMembers() {
         ArrayList<Member> unpaidMembers = new ArrayList<>();
 
         for (Member member : members) {
